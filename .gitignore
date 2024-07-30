@@ -1,0 +1,14 @@
+# Python
+*.pyc
+__pycache__/
+
+# Virtual environment
+venv/
+
+# IDE files (Visual Studio Code, etc.)
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
