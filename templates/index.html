@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Coffee Machine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Virtual Coffee Machine</h1>
+
+    <h2>Menu</h2>
+    <ul>
+        {% for coffee, details in menu.items() %}
+        <li>{{ coffee.capitalize() }}: Rs{{ details.cost }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Resources</h2>
+    <ul>
+        <li>Water: {{ resources.water }}ml</li>
+        <li>Milk: {{ resources.milk }}ml</li>
+        <li>Coffee: {{ resources.coffee }}g</li>
+    </ul>
+
+    <h2>Profit: Rs{{ profit }}</h2>
+
+    <h2>Order Coffee</h2>
+    <form action="{{ url_for('order') }}" method="post">
+        <label for="coffee_type">Choose your coffee:</label>
+        <select name="coffee_type" id="coffee_type">
+            {% for coffee in menu %}
+            <option value="{{ coffee }}">{{ coffee.capitalize() }}</option>
+            {% endfor %}
+        </select>
+        <h3>Insert Coins</h3>
+        <label for="coins_five">5rs coins:</label>
+        <input type="number" name="coins_five" id="coins_five" min="0" value="0">
+        <br>
+        <label for="coins_ten">10rs coins:</label>
+        <input type="number" name="coins_ten" id="coins_ten" min="0" value="0">
+        <br>
+        <label for="coins_twenty">20rs coins:</label>
+        <input type="number" name="coins_twenty" id="coins_twenty" min="0" value="0">
+        <br><br>
+        <button type="submit">Order</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</body>
+</html>
